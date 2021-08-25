@@ -10,12 +10,12 @@ object FakeUserData {
             "Hamburger",
             "Ham",
             "Keith",
-            "Lisa",
-            "Nick",
-            "Amy",
-            "Hamburger",
-            "Ham",
-            "Keith"
+            "Mike",
+            "Milk",
+            "Yang",
+            "Pizza",
+            "Kevin",
+            "Alan"
         )
     }
 
@@ -27,12 +27,12 @@ object FakeUserData {
             "Hamburger@gmail.com",
             "Ham@gmail.com",
             "Keith@gmail.com",
-            "Lisa@gmail.com",
-            "Nick@gmail.com",
-            "Amy@gmail.com",
-            "Hamburger@gmail.com",
-            "Ham@gmail.com",
-            "Keith@gmail.com"
+            "Mike@gmail.com",
+            "Mikl@gmail.com",
+            "Yang@gmail.com",
+            "Pizza@gmail.com",
+            "Kevin@gmail.com",
+            "Alan@gmail.com"
         )
     }
 
@@ -46,6 +46,9 @@ object FakeUserData {
             "Nice",
             "Good to see you again!",
             "Nice to see you!",
+            "WOW",
+            "I Got You!",
+            "Have a nice day!",
         )
     }
 }
