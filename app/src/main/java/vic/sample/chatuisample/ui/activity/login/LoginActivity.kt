@@ -1,13 +1,10 @@
 package vic.sample.chatuisample.ui.activity.login
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -15,7 +12,6 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.ext.android.inject
 import vic.sample.chatuisample.R
-import vic.sample.chatuisample.mvvm.viewmodel.login.LoginCallback
 import vic.sample.chatuisample.mvvm.viewmodel.login.LoginViewModel
 import vic.sample.chatuisample.ui.activity.home.HomeActivity
 import vic.sample.chatuisample.ui.basic.BasicActivity

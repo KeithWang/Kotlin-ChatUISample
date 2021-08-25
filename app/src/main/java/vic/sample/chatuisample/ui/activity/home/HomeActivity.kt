@@ -13,7 +13,6 @@ import org.koin.android.ext.android.inject
 import vic.sample.chatuisample.R
 import vic.sample.chatuisample.config.ConfigValue
 import vic.sample.chatuisample.mvvm.model.simulate.FakeUserData
-import vic.sample.chatuisample.mvvm.viewmodel.home.HomeCallback
 import vic.sample.chatuisample.mvvm.viewmodel.home.HomeViewModel
 import vic.sample.chatuisample.ui.activity.home.adapter.UserItem
 import vic.sample.chatuisample.ui.activity.home.adapter.UserListAdapter

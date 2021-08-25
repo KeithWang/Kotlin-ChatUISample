@@ -1,4 +1,4 @@
-package vic.sample.chatuisample.mvvm.viewmodel.home
+package vic.sample.chatuisample.ui.activity.home
 
 import vic.sample.chatuisample.ui.activity.home.adapter.UserItem
 
