@@ -7,17 +7,9 @@ It also uses the Koin(Dependency Injection Tools In Kotlin) to maintain and the 
 <br><br>
 ## Sapmle Flow
 <br><br>
-Flow One:
+<img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/login.png?raw=true" height="585" width="270" />
+<img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/home.png?raw=true" height="585" width="270" />
+<img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/chat.png?raw=true" height="585" width="270" />
 <br><br>
-![FlowOne](https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/login.png?raw=true)
-
-Flow Two:
-<br><br>
-![FlowTwo](https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/home.png?raw=true)
-
-Flow Three:
-<br><br>
-![FlowThree](https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/chat.png?raw=true)
-
 ## Reference
 [googlesamples/android-architecture](https://github.com/googlesamples/android-architecture)
