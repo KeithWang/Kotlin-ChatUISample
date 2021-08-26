@@ -1,6 +1,8 @@
 # Android Chat UI Sample
 This project is a chatting user interface sample with MVVM architecture for Android.
 <br><br>
+The project provides basic checking functions for the account(email) and passwords in the LoginViewModel, and the XML of the user interface used the ConstraintLayout to create all views.
+<br><br>
 ## Sapmle Flow
 <br><br>
 Flow One:
