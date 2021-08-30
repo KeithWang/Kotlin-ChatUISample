@@ -111,7 +111,7 @@ class LoginActivity : BasicActivity(), LoginCallback {
         override fun CustomOnClick(view: View) {
             when (view.id) {
                 R.id.login_btn_sign_in -> {
-                    mLoginViewModel.login(wEditEmail.text.toString(), wEditPwd.text.toString())
+                    mLoginViewModel.onLogin(wEditEmail.text.toString(), wEditPwd.text.toString())
                     onHideKeyboard()
                     wEditEmail.clearFocus()
                     wEditPwd.clearFocus()

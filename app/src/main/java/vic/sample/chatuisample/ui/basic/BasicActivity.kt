@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.android.ext.android.inject
 import vic.sample.chatuisample.mvvm.model.cache.CacheRepository
+import vic.sample.chatuisample.utility.Tools
 
 open class BasicActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ open class BasicActivity : AppCompatActivity() {
     lateinit var dialog: Dialog
 
     val mCache: CacheRepository by inject()
+    val mTools: Tools by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

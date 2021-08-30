@@ -1,5 +1,8 @@
 package vic.sample.chatuisample.mvvm.model.login
 
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import vic.sample.chatuisample.mvvm.model.login.logout.LogoutResponse
 import vic.sample.chatuisample.mvvm.model.simulate.LoginOrLogoutDataSource
 
@@ -24,24 +27,33 @@ class LoginRepository(val orLogoutDataSource: LoginOrLogoutDataSource) {
             null
     }
 
-    fun logout(): LogoutResponse {
+    suspend fun logout(): LogoutResponse = withContext(IO) {
+        /*
+        * To simulate the loading progress
+        * */
+        delay(2000)
         val logoutResult = orLogoutDataSource.logout(user)
 
         if (logoutResult.status == AboutLoginOrOutStatus.SUCCESS) {
             user = null
         }
 
-        return logoutResult
+        return@withContext logoutResult
     }
 
-    fun login(username: String, password: String): LoginResponse {
+    suspend fun login(username: String, password: String): LoginResponse = withContext(IO) {
+
+        /*
+        * To simulate the loading progress
+        * */
+        delay(2000)
         val loginResponse = orLogoutDataSource.login(username, password)
 
         loginResponse.userObj?.let {
             setLoggedInUser(loginResponse.userObj)
         }
 
-        return loginResponse
+        return@withContext loginResponse
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

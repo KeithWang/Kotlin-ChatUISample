@@ -1,4 +1,4 @@
-package vic.sample.chatuisample.mvvm.rxprovider
+package vic.sample.chatuisample.mvvm.rxprovide
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

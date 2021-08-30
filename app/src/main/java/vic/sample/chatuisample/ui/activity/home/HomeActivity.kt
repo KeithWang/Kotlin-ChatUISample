@@ -2,6 +2,8 @@ package vic.sample.chatuisample.ui.activity.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -22,6 +24,7 @@ import vic.sample.chatuisample.ui.fragment.UserChatFragment
 
 class HomeActivity : BasicActivity(), HomeCallback {
 
+    private val wLayLoadingArea: FrameLayout by lazy { home_lay_loading_area }
     private val wImgBtbLogout: ImageView by lazy { home_img_btn_logout }
     private val wTxtUserNameTitle: TextView by lazy { home_txt_user_name }
     private val wTxtUserEmail: TextView by lazy { home_txt_user_email }
@@ -45,6 +48,12 @@ class HomeActivity : BasicActivity(), HomeCallback {
     }
 
     private fun viewValueSet() {
+        mHomeViewModel.getIsLoadingStatus().observe(
+            this@HomeActivity, {
+                wLayLoadingArea.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        )
+
         mHomeViewModel.getLogoutResult().observe(
             this@HomeActivity, { logoutResult ->
                 logoutResult.success?.let {
@@ -60,12 +69,16 @@ class HomeActivity : BasicActivity(), HomeCallback {
 
         mHomeViewModel.getHomeViewDataResult().observe(
             this@HomeActivity, { homeViewData ->
-                wTxtUserNameTitle.text = homeViewData.userData?.displayName
-                wTxtUserEmail.text = homeViewData.userData?.email
+                if (homeViewData.isLogin) {
+                    wTxtUserNameTitle.text = homeViewData.userData?.displayName
+                    wTxtUserEmail.text = homeViewData.userData?.email
+                } else {
+                    mHomeViewModel.onLogout()
+                }
             }
         )
 
-        mHomeViewModel.initHomeView()
+        mHomeViewModel.onInitHomeView()
 
         initFakeUserList()
     }

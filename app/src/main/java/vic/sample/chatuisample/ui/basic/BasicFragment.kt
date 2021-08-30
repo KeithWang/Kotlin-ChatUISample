@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import org.koin.android.ext.android.inject
 import vic.sample.chatuisample.mvvm.model.cache.CacheRepository
+import vic.sample.chatuisample.utility.Tools
 
 
 open class BasicFragment : Fragment() {
@@ -18,6 +19,7 @@ open class BasicFragment : Fragment() {
     var mPageIsLive = false
 
     val mCache: CacheRepository by inject()
+    val mTools: Tools by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

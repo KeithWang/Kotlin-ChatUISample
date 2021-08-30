@@ -9,10 +9,11 @@ import org.koin.dsl.module
 import vic.sample.chatuisample.mvvm.model.cache.CacheRepository
 import vic.sample.chatuisample.mvvm.model.simulate.LoginOrLogoutDataSource
 import vic.sample.chatuisample.mvvm.model.login.LoginRepository
-import vic.sample.chatuisample.mvvm.rxprovider.AppSchedulerProvider
-import vic.sample.chatuisample.mvvm.rxprovider.SchedulerProvider
+import vic.sample.chatuisample.mvvm.rxprovide.AppSchedulerProvider
+import vic.sample.chatuisample.mvvm.rxprovide.SchedulerProvider
 import vic.sample.chatuisample.mvvm.viewmodel.home.HomeViewModel
 import vic.sample.chatuisample.mvvm.viewmodel.login.LoginViewModel
+import vic.sample.chatuisample.utility.Tools
 
 
 class MyApplication : Application() {
@@ -23,6 +24,7 @@ class MyApplication : Application() {
         * Normal Module
         * */
         single { CacheRepository(get()) }
+        single { Tools() }
         single<SchedulerProvider> { AppSchedulerProvider() }
 
         /*
@@ -34,8 +36,8 @@ class MyApplication : Application() {
         /*
         * View model module
         * */
-        viewModel { LoginViewModel(get()) }
-        viewModel { HomeViewModel(get()) }
+        viewModel { LoginViewModel(loginRepository = get(), tools = get()) }
+        viewModel { HomeViewModel(loginRepository = get()) }
     }
 
     override fun onCreate() {

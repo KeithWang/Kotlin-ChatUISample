@@ -6,6 +6,6 @@ import java.io.Serializable
 
 @Keep
 data class HomeViewData(
-        val isLogin: Boolean? = null,
+        val isLogin: Boolean = false,
         val userData: LoggedInUser? = null
 ) : Serializable

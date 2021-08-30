@@ -1,6 +1,5 @@
-package vic.sample.chatuisample.mvvm.rxprovider
+package vic.sample.chatuisample.mvvm.rxprovide
 
-import vic.sample.chatuisample.mvvm.rxprovider.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 
