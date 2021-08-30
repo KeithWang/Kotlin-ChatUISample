@@ -3,7 +3,9 @@ This project is a chatting user interface sample with MVVM architecture for Andr
 <br><br>
 It provides basic checking functions for the account(email) and passwords in the LoginViewModel, and the XML of the user interface used the ConstraintLayout to create all views.
 <br><br>
-It also uses the Koin(Dependency Injection Tools In Kotlin) to maintain and the Coroutines to simulate the login progress.
+It also uses the Koin(Dependency Injection Tools In Kotlin) to maintain and the Coroutines to simulate the login progress. 
+<br><br>
+Finally, I added unit tests for all VideModels including verification of basic logic, which contains the LiveData and the Coroutine test.
 <br><br>
 ## Sapmle Flow
 <br><br>
