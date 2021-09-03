@@ -7,11 +7,16 @@ It also uses the Koin(Dependency Injection Tools In Kotlin) to maintain and the 
 <br><br>
 Finally, I added unit tests for all VideModels including verification of basic logic, which contains the LiveData and the Coroutine test.
 <br><br>
-## Sapmle Flow
+# Sapmle Flow
 <br><br>
 <img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/login.png?raw=true" height="585" width="270" />
 <img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/home.png?raw=true" height="585" width="270" />
 <img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/chat.png?raw=true" height="585" width="270" />
 <br><br>
-## Reference
+## The MaterialContainerTransform
+<br>
+<img src="https://github.com/KeithWang/Kotlin-Chat_UI_Sample/blob/master/pic/anim.gif?raw=true" height="530" width="300" />
+<br><br>
+
+# Reference
 [googlesamples/android-architecture](https://github.com/googlesamples/android-architecture)
