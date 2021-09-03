@@ -1,7 +1,6 @@
-package vic.sample.chatuisample.ui.activity.home.adapter
+package vic.sample.chatuisample.ui.fragment.home.adapter
 
 import androidx.annotation.Keep
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 

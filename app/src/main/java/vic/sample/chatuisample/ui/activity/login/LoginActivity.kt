@@ -12,6 +12,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.ext.android.inject
 import vic.sample.chatuisample.R
+import vic.sample.chatuisample.databinding.ActivityLoginBinding
 import vic.sample.chatuisample.mvvm.viewmodel.login.LoginViewModel
 import vic.sample.chatuisample.ui.activity.home.HomeActivity
 import vic.sample.chatuisample.ui.basic.BasicActivity
@@ -19,19 +20,14 @@ import vic.sample.chatuisample.utility.ViewClick
 
 class LoginActivity : BasicActivity(), LoginCallback {
 
-    private val wLayLoadingArea: FrameLayout by lazy { login_lay_loading_area }
-    private val wEditEmail: EditText by lazy { login_edit_account_email }
-    private val wEditPwd: EditText by lazy { login_edit_password }
-    private val wBtnSignIn: Button by lazy { login_btn_sign_in }
-    private val wTxtBtnForgetPwd: TextView by lazy { login_txt_btn_forget_pwd }
-    private val wTxtBtnCreateNewAccount: TextView by lazy { login_txt_btn_create_new_account }
+    private lateinit var binding: ActivityLoginBinding
 
     private val mLoginViewModel: LoginViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         viewValueSet()
         viewListenerSet()
     }
@@ -72,14 +68,14 @@ class LoginActivity : BasicActivity(), LoginCallback {
         mLoginViewModel.getLoginCheckInputData().observe(
             this@LoginActivity, { loginCheckObj ->
 
-                wBtnSignIn.isEnabled = loginCheckObj.isDataValid
+                binding.loginBtnSignIn.isEnabled = loginCheckObj.isDataValid
 
                 loginCheckObj.accountError?.let { accountErrorIntSource ->
-                    wEditEmail.error = getString(accountErrorIntSource)
+                    binding.loginEditAccountEmail.error = getString(accountErrorIntSource)
                 }
 
                 loginCheckObj.passwordError?.let { pwdErrorIntSource ->
-                    wEditPwd.error = getString(pwdErrorIntSource)
+                    binding.loginEditPassword.error = getString(pwdErrorIntSource)
                 }
             }
         )
@@ -88,21 +84,21 @@ class LoginActivity : BasicActivity(), LoginCallback {
     }
 
     private fun viewListenerSet() {
-        wBtnSignIn.setOnClickListener(mNormalClickListener)
-        wTxtBtnForgetPwd.setOnClickListener(mNormalClickListener)
-        wTxtBtnCreateNewAccount.setOnClickListener(mNormalClickListener)
+        binding.loginBtnSignIn.setOnClickListener(mNormalClickListener)
+        binding.loginTxtBtnForgetPwd.setOnClickListener(mNormalClickListener)
+        binding.loginTxtBtnCreateNewAccount.setOnClickListener(mNormalClickListener)
 
-        wEditEmail.afterTextChanged {
+        binding.loginEditAccountEmail.afterTextChanged {
             mLoginViewModel.onLoginInputChange(
-                wEditEmail.text.toString(),
-                wEditPwd.text.toString()
+                binding.loginEditAccountEmail.text.toString(),
+                binding.loginEditPassword.text.toString()
             )
         }
 
-        wEditPwd.afterTextChanged {
+        binding.loginEditPassword.afterTextChanged {
             mLoginViewModel.onLoginInputChange(
-                wEditEmail.text.toString(),
-                wEditPwd.text.toString()
+                binding.loginEditAccountEmail.text.toString(),
+                binding.loginEditPassword.text.toString()
             )
         }
     }
@@ -111,10 +107,13 @@ class LoginActivity : BasicActivity(), LoginCallback {
         override fun CustomOnClick(view: View) {
             when (view.id) {
                 R.id.login_btn_sign_in -> {
-                    mLoginViewModel.onLogin(wEditEmail.text.toString(), wEditPwd.text.toString())
+                    mLoginViewModel.onLogin(
+                        binding.loginEditAccountEmail.text.toString(),
+                        binding.loginEditPassword.text.toString()
+                    )
                     onHideKeyboard()
-                    wEditEmail.clearFocus()
-                    wEditPwd.clearFocus()
+                    binding.loginEditAccountEmail.clearFocus()
+                    binding.loginEditPassword.clearFocus()
                 }
                 R.id.login_txt_btn_forget_pwd -> {
                     callToast(getString(R.string.login_forget_pwd), isLong = true)
@@ -130,9 +129,8 @@ class LoginActivity : BasicActivity(), LoginCallback {
     /*
     * Callback fun
     * */
-
     override fun onShowLoading(show: Boolean) {
-        wLayLoadingArea.visibility = if (show) View.VISIBLE else View.GONE
+        binding.loginLayLoadingArea.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun openHomePage() {

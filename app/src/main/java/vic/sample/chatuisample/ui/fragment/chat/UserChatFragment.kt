@@ -1,56 +1,48 @@
-package vic.sample.chatuisample.ui.fragment
+package vic.sample.chatuisample.ui.fragment.chat
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.*
-import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_user_chat.*
+import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import vic.sample.chatuisample.R
+import vic.sample.chatuisample.databinding.FragmentUserChatBinding
 import vic.sample.chatuisample.mvvm.model.simulate.FakeUserData
 import vic.sample.chatuisample.ui.activity.home.HomeCallback
-import vic.sample.chatuisample.ui.activity.home.adapter.UserItem
+import vic.sample.chatuisample.ui.fragment.home.adapter.UserItem
 import vic.sample.chatuisample.ui.basic.BasicFragment
-import vic.sample.chatuisample.ui.fragment.adapter.ChatAdapter
-import vic.sample.chatuisample.ui.fragment.adapter.ChatItem
-import vic.sample.chatuisample.ui.fragment.adapter.ChatViewType
+import vic.sample.chatuisample.ui.fragment.chat.adapter.ChatAdapter
+import vic.sample.chatuisample.ui.fragment.chat.adapter.ChatItem
+import vic.sample.chatuisample.ui.fragment.chat.adapter.ChatViewType
 import java.util.*
 
 class UserChatFragment : BasicFragment() {
 
-    private val wImgBtbClose: ImageView by lazy { user_chat_img_btn_close }
-    private val wTxtUserNameTitle: TextView by lazy { user_chat_txt_user_name }
-    private val wTxtUserEmail: TextView by lazy { user_chat_txt_user_email }
-    private val wLayBtnSendMsg: FrameLayout by lazy { user_chat_lay_btn_send }
-    private val wEditMsgInput: EditText by lazy { user_chat_edit_input_msg }
-
     private lateinit var mMainCallback: HomeCallback
 
-    private var mUserData: UserItem? = null
+    private lateinit var binding: FragmentUserChatBinding
+
+    /*
+    * To init page data
+    * */
+    private val args: UserChatFragmentArgs by navArgs()
+    private val mUserData: UserItem by lazy { args.userItem }
 
     /*
     * Chat List
     * */
-    private val wRecycleViewChat: RecyclerView by lazy { user_chat_recycle_view_chat_list }
     private val mChatItemList = ArrayList<ChatItem>()
     private val mChatAdapter: ChatAdapter by lazy {
         ChatAdapter(mContext, mChatItemList)
-    }
-
-
-    companion object {
-        private const val USER_CHART_OBJ_KET = "USER_CHART_OBJ_KET"
-
-        fun newInstance(user: UserItem) = UserChatFragment().apply {
-            arguments = bundleOf(USER_CHART_OBJ_KET to user)
-        }
     }
 
     override fun onDestroy() {
@@ -69,11 +61,18 @@ class UserChatFragment : BasicFragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_user_chat, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
+    ): View {
+        binding = FragmentUserChatBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,28 +83,23 @@ class UserChatFragment : BasicFragment() {
 
 
     private fun viewValueSet() {
-        arguments?.let {
-            mUserData = it.get(USER_CHART_OBJ_KET) as UserItem
-        }
 
-        mUserData?.let {
-            wTxtUserNameTitle.text = it.name
-            wTxtUserEmail.text = it.email
-        }
+        binding.userChatTxtUserName.text = mUserData.name
+        binding.userChatTxtUserEmail.text = mUserData.email
 
         initChatRecycleView()
     }
 
     private fun viewListenerSet() {
-        wImgBtbClose.setOnClickListener {
-            parentFragmentManager.popBackStackImmediate()
+        binding.userChatImgBtnClose.setOnClickListener {
+            findNavController().navigateUp()
         }
 
-        wLayBtnSendMsg.setOnClickListener {
-            val msg = wEditMsgInput.text.toString()
+        binding.userChatLayBtnSend.setOnClickListener {
+            val msg = binding.userChatEditInputMsg.text.toString()
             if (msg.isNotEmpty()) {
                 addNesMsg(msg, System.currentTimeMillis(), ChatViewType.VIEW_TYPE_SEND)
-                wEditMsgInput.setText("")
+                binding.userChatEditInputMsg.setText("")
 
                 val fakeResponse = FakeUserData.getUserResponse()
 
@@ -121,7 +115,7 @@ class UserChatFragment : BasicFragment() {
     }
 
     private fun initChatRecycleView() {
-        wRecycleViewChat.apply {
+        binding.userChatRecycleViewChatList.apply {
             adapter = mChatAdapter
             layoutManager = LinearLayoutManager(
                 mContext, RecyclerView.VERTICAL, false
@@ -136,8 +130,8 @@ class UserChatFragment : BasicFragment() {
     ) {
         mChatItemList.add(ChatItem(contain, msgUtcTime, viewType))
         mChatAdapter.notifyItemChanged(mChatItemList.size - 1)
-        wRecycleViewChat.post {
-            wRecycleViewChat.smoothScrollToPosition(mChatItemList.size - 1)
+        binding.userChatRecycleViewChatList.post {
+            binding.userChatRecycleViewChatList.smoothScrollToPosition(mChatItemList.size - 1)
         }
 
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeListFragment">
+
+    <fragment
+        android:id="@+id/homeListFragment"
+        android:name="vic.sample.chatuisample.ui.fragment.home.HomeListFragment"
+        android:label="HomeListFragment"
+        tools:layout="@layout/fragment_home_list">
+        <action
+            android:id="@+id/action_homeListFragment_to_userChatFragment"
+            app:destination="@id/userChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userChatFragment"
+        android:name="vic.sample.chatuisample.ui.fragment.chat.UserChatFragment"
+        android:label="UserChatFragment"
+        tools:layout="@layout/fragment_user_chat">
+        <argument
+            android:name="userItem"
+            app:argType="vic.sample.chatuisample.ui.fragment.home.adapter.UserItem" />
+    </fragment>
+
+</navigation>

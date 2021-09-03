@@ -1,4 +1,4 @@
-package vic.sample.chatuisample.ui.fragment.adapter
+package vic.sample.chatuisample.ui.fragment.chat.adapter
 
 import androidx.annotation.Keep
 import java.io.Serializable

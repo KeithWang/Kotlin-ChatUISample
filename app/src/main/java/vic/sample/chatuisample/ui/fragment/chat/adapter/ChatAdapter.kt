@@ -1,17 +1,15 @@
-package vic.sample.chatuisample.ui.fragment.adapter
+package vic.sample.chatuisample.ui.fragment.chat.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.row_user_chat_receive_message.view.*
 import kotlinx.android.synthetic.main.row_user_chat_send_message.view.*
 import vic.sample.chatuisample.R
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ChatAdapter(
