@@ -33,7 +33,7 @@ class HomeListFragment : BasicFragment() {
     private val mUserList = ArrayList<UserItem>()
 
     private val mAdapter : UserListAdapter by lazy {
-        UserListAdapter(mContext, mUserList) { view, clickItem ->
+        UserListAdapter(mUserList) { view, clickItem ->
             val extras =
                 FragmentNavigatorExtras(view to getString(R.string.list_transition_to_chat))
             val direction: NavDirections =

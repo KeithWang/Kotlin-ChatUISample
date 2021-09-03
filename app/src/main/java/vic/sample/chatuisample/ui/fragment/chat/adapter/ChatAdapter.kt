@@ -1,24 +1,22 @@
 package vic.sample.chatuisample.ui.fragment.chat.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.row_user_chat_receive_message.view.*
-import kotlinx.android.synthetic.main.row_user_chat_send_message.view.*
-import vic.sample.chatuisample.R
+import vic.sample.chatuisample.databinding.RowUserChatReceiveMessageBinding
+import vic.sample.chatuisample.databinding.RowUserChatSendMessageBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class ChatAdapter(
-    context: Context, private val items: List<ChatItem>,
+    private val items: List<ChatItem>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val mInflater: LayoutInflater = LayoutInflater.from(context)
-
     private val dateFormatter = SimpleDateFormat("MMM d, HH:mm:ss", Locale.getDefault())
+
+    private lateinit var sendBinding: RowUserChatSendMessageBinding
+    private lateinit var receiveBinding: RowUserChatReceiveMessageBinding
 
     override fun getItemViewType(position: Int): Int {
         if (items[position].viewType == ChatViewType.VIEW_TYPE_RECEIVE) {
@@ -29,15 +27,16 @@ class ChatAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ChatViewType.VIEW_TYPE_RECEIVE.value) {
-            val view = mInflater.inflate(
-                R.layout.row_user_chat_receive_message, parent, false
+            receiveBinding = RowUserChatReceiveMessageBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
             )
-            ViewHolderReceive(view, dateFormatter)
+
+            ViewHolderReceive(receiveBinding, dateFormatter)
         } else {
-            val view = mInflater.inflate(
-                R.layout.row_user_chat_send_message, parent, false
+            sendBinding = RowUserChatSendMessageBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
             )
-            ViewHolderSend(view, dateFormatter)
+            ViewHolderSend(sendBinding, dateFormatter)
         }
     }
 
@@ -53,24 +52,26 @@ class ChatAdapter(
     }
 
     class ViewHolderReceive(
-        private val view: View, private val dateFormatter: SimpleDateFormat
-    ) : RecyclerView.ViewHolder(view) {
+        private val receiveBinding: RowUserChatReceiveMessageBinding,
+        private val dateFormatter: SimpleDateFormat
+    ) : RecyclerView.ViewHolder(receiveBinding.root) {
 
         fun bind(item: ChatItem) {
-            view.msg_receive_txt_msg.text = item.contain
-            view.msg_receive_txt_time.text = dateFormatter.format(Date(item.msgUtc))
-            view.msg_receive_txt_msg.requestLayout()
+            receiveBinding.msgReceiveTxtMsg.text = item.contain
+            receiveBinding.msgReceiveTxtTime.text = dateFormatter.format(Date(item.msgUtc))
+            receiveBinding.msgReceiveTxtMsg.requestLayout()
         }
     }
 
     class ViewHolderSend(
-        private val view: View, private val dateFormatter: SimpleDateFormat
-    ) : RecyclerView.ViewHolder(view) {
+        private val sendBinding: RowUserChatSendMessageBinding,
+        private val dateFormatter: SimpleDateFormat
+    ) : RecyclerView.ViewHolder(sendBinding.root) {
 
         fun bind(item: ChatItem) {
-            view.msg_send_txt_msg.text = item.contain
-            view.msg_send_txt_time.text = dateFormatter.format(Date(item.msgUtc))
-            view.msg_send_txt_msg.requestLayout()
+            sendBinding.msgSendTxtMsg.text = item.contain
+            sendBinding.msgSendTxtTime.text = dateFormatter.format(Date(item.msgUtc))
+            sendBinding.msgSendTxtMsg.requestLayout()
         }
     }
 }

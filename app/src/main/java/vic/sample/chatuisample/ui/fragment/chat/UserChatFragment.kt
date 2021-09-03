@@ -1,7 +1,6 @@
 package vic.sample.chatuisample.ui.fragment.chat
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.navigation.fragment.findNavController
@@ -42,7 +41,7 @@ class UserChatFragment : BasicFragment() {
     * */
     private val mChatItemList = ArrayList<ChatItem>()
     private val mChatAdapter: ChatAdapter by lazy {
-        ChatAdapter(mContext, mChatItemList)
+        ChatAdapter(mChatItemList)
     }
 
     override fun onDestroy() {
