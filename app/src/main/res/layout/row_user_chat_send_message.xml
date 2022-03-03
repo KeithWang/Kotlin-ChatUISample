@@ -27,6 +27,7 @@
         app:layout_constraintWidth_percent="0.8" />
 
     <TextView
+        android:textColor="@color/gray"
         android:id="@+id/msg_send_txt_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

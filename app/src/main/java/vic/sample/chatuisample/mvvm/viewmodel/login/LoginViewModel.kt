@@ -3,16 +3,13 @@ package vic.sample.chatuisample.mvvm.viewmodel.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import okhttp3.Dispatcher
 import vic.sample.chatuisample.R
 import vic.sample.chatuisample.mvvm.model.login.AboutLoginOrOutStatus
 import vic.sample.chatuisample.mvvm.model.login.LoginRepository
-import vic.sample.chatuisample.mvvm.model.login.LoginResponse
 import vic.sample.chatuisample.mvvm.viewmodel.BasicViewModel
 import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginDataCheck
-import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginResult
+import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginStatus
 import vic.sample.chatuisample.utility.Tools
 
 class LoginViewModel(
@@ -23,17 +20,12 @@ class LoginViewModel(
 
     private val coroutineScope = getViewModelScope(coroutineScopeProvider)
 
-    private val isLoading = MutableLiveData<Boolean>()
-    private val loginResult = MutableLiveData<LoginResult>()
+    private val loginStatus = MutableLiveData<LoginStatus>()
     private val loginInputDataCheck = MutableLiveData<LoginDataCheck>()
     private val isLogin = MutableLiveData<Boolean>()
 
-    fun getIsLoadingStatus(): LiveData<Boolean> {
-        return isLoading
-    }
-
-    fun getLoginResult(): LiveData<LoginResult> {
-        return loginResult
+    fun getLoginResult(): LiveData<LoginStatus> {
+        return loginStatus
     }
 
     fun getLoginCheckInputData(): LiveData<LoginDataCheck> {
@@ -55,17 +47,22 @@ class LoginViewModel(
         * */
         coroutineScope.launch(Main) {
 
-            isLoading.value = true
+            loginStatus.value = LoginStatus.OnApiLoading(true)
 
             val result = loginRepository.login(account, password)
 
             if (result.status == AboutLoginOrOutStatus.SUCCESS) {
-                loginResult.value = LoginResult(success = result.userObj)
+                result.userObj?.let { userInfo ->
+                    loginStatus.value = LoginStatus.OnApiSuccess(userInfo = userInfo)
+                } ?: run {
+                    loginStatus.value = LoginStatus.OnApiFail(errorStrInt = R.string.login_user_fail)
+                }
             } else {
-                loginResult.value = LoginResult(error = R.string.login_failed)
+                loginStatus.value = LoginStatus.OnApiFail(errorStrInt = R.string.login_failed)
             }
 
-            isLoading.value = false
+            loginStatus.value = LoginStatus.OnApiLoading(false)
+
         }
 
     }

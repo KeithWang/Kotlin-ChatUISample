@@ -2,19 +2,21 @@ package vic.sample.chatuisample.mvvm.model.cache
 
 import android.content.Context
 import android.content.SharedPreferences
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class PreferenceFactory<T>(val key: String, val default: T, val context: Context) {
+class PreferenceFactory<T>(val key: String, val default: T, val context: Context)
+    : ReadWriteProperty<Any?, T> {
 
     val prefs: SharedPreferences by lazy {
         context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
     }
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
         return getSharedPreferences(key, default)
     }
 
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         putSharedPreferences(key, value)
     }
 
@@ -38,6 +40,7 @@ class PreferenceFactory<T>(val key: String, val default: T, val context: Context
             is Float -> getFloat(name, default)
             else -> throw IllegalArgumentException("SharedPreferences can't be get this type")
         }!!
+        @Suppress("UNCHECKED_CAST")
         return res as T
     }
 

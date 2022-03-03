@@ -8,6 +8,7 @@
     <string name="login_sign_in">Sign in</string>
     <string name="login_create_new_account">Create New Account</string>
     <string name="login_forget_pwd">"Forget password"</string>
+    <string name="login_user_fail">"The user error! Please try again later!"</string>
     <string name="login_failed">"Login failed"</string>
     <string name="login_invalid_email">Not a valid email</string>
     <string name="login_invalid_password">Password must be >5 characters</string>

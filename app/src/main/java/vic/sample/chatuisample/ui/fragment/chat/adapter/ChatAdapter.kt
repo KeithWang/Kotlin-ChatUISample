@@ -10,7 +10,7 @@ import java.util.*
 
 
 class ChatAdapter(
-    private val items: List<ChatItem>,
+    private var dataList: ArrayList<ChatItem>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dateFormatter = SimpleDateFormat("MMM d, HH:mm:ss", Locale.getDefault())
@@ -19,10 +19,10 @@ class ChatAdapter(
     private lateinit var receiveBinding: RowUserChatReceiveMessageBinding
 
     override fun getItemViewType(position: Int): Int {
-        if (items[position].viewType == ChatViewType.VIEW_TYPE_RECEIVE) {
-            return ChatViewType.VIEW_TYPE_RECEIVE.value
-        }
-        return ChatViewType.VIEW_TYPE_SEND.value
+        return if (dataList[position].viewType == ChatViewType.VIEW_TYPE_RECEIVE)
+            ChatViewType.VIEW_TYPE_RECEIVE.value
+        else
+            ChatViewType.VIEW_TYPE_SEND.value
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -40,15 +40,20 @@ class ChatAdapter(
         }
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = dataList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = items[position]
+        val item = dataList[position]
         if (item.viewType == ChatViewType.VIEW_TYPE_RECEIVE) {
             (holder as ViewHolderReceive).bind(item)
         } else if (item.viewType == ChatViewType.VIEW_TYPE_SEND) {
             (holder as ViewHolderSend).bind(item)
         }
+    }
+
+    fun addMsg(chatItem: ChatItem) {
+        dataList.add(chatItem)
+        notifyItemChanged(itemCount - 1)
     }
 
     class ViewHolderReceive(

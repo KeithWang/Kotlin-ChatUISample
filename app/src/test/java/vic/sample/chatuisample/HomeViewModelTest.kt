@@ -15,15 +15,10 @@ import org.mockito.MockitoAnnotations
 import vic.sample.chatuisample.mvvm.model.login.AboutLoginOrOutStatus
 import vic.sample.chatuisample.mvvm.model.login.LoggedInUser
 import vic.sample.chatuisample.mvvm.model.login.LoginRepository
-import vic.sample.chatuisample.mvvm.model.login.LoginResponse
 import vic.sample.chatuisample.mvvm.model.login.logout.LogoutResponse
 import vic.sample.chatuisample.mvvm.viewmodel.home.HomeViewModel
 import vic.sample.chatuisample.mvvm.viewmodel.home.item.HomeViewData
 import vic.sample.chatuisample.mvvm.viewmodel.home.item.LogoutResult
-import vic.sample.chatuisample.mvvm.viewmodel.login.LoginViewModel
-import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginDataCheck
-import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginResult
-import vic.sample.chatuisample.utility.Tools
 
 @ExperimentalCoroutinesApi
 class HomeViewModelTest {

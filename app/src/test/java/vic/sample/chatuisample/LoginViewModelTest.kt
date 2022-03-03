@@ -18,7 +18,6 @@ import vic.sample.chatuisample.mvvm.model.login.LoginRepository
 import vic.sample.chatuisample.mvvm.model.login.LoginResponse
 import vic.sample.chatuisample.mvvm.viewmodel.login.LoginViewModel
 import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginDataCheck
-import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginResult
 import vic.sample.chatuisample.utility.Tools
 
 @ExperimentalCoroutinesApi

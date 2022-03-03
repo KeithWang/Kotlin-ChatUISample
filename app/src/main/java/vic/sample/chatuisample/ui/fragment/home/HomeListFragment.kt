@@ -28,19 +28,9 @@ class HomeListFragment : BasicFragment() {
 
     private lateinit var binding: FragmentHomeListBinding
 
+    private lateinit var mAdapter : UserListAdapter
+
     private val mHomeViewModel: HomeViewModel by inject()
-
-    private val mUserList = ArrayList<UserItem>()
-
-    private val mAdapter : UserListAdapter by lazy {
-        UserListAdapter(mUserList) { view, clickItem ->
-            val extras =
-                FragmentNavigatorExtras(view to getString(R.string.list_transition_to_chat))
-            val direction: NavDirections =
-                HomeListFragmentDirections.actionHomeListFragmentToUserChatFragment(clickItem)
-            findNavController().navigate(direction, extras)
-        }
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -123,12 +113,20 @@ class HomeListFragment : BasicFragment() {
     }
 
     private fun initFakeUserList() {
-        mUserList.clear()
+        val mUserList = ArrayList<UserItem>()
 
         for (i in FakeUserData.getUserName().indices) {
             val userName = FakeUserData.getUserName()[i]
             val userEmail = FakeUserData.getUserEmail()[i]
             mUserList.add(UserItem(userName, userEmail))
+        }
+
+        mAdapter = UserListAdapter(mUserList) { view, clickItem ->
+            val extras =
+                FragmentNavigatorExtras(view to getString(R.string.list_transition_to_chat))
+            val direction: NavDirections =
+                HomeListFragmentDirections.actionHomeListFragmentToUserChatFragment(clickItem)
+            findNavController().navigate(direction, extras)
         }
 
         binding.homeListRecycleViewUserList.apply {

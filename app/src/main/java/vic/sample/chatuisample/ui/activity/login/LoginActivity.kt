@@ -14,6 +14,7 @@ import org.koin.android.ext.android.inject
 import vic.sample.chatuisample.R
 import vic.sample.chatuisample.databinding.ActivityLoginBinding
 import vic.sample.chatuisample.mvvm.viewmodel.login.LoginViewModel
+import vic.sample.chatuisample.mvvm.viewmodel.login.item.LoginStatus
 import vic.sample.chatuisample.ui.activity.home.HomeActivity
 import vic.sample.chatuisample.ui.basic.BasicActivity
 import vic.sample.chatuisample.utility.ViewClick
@@ -34,12 +35,6 @@ class LoginActivity : BasicActivity(), LoginCallback {
 
     private fun viewValueSet() {
 
-        mLoginViewModel.getIsLoadingStatus().observe(
-            this@LoginActivity, {
-                onShowLoading(it)
-            }
-        )
-
         mLoginViewModel.getIsLoginStatus().observe(
             this@LoginActivity, {
                 if (it) {
@@ -50,13 +45,17 @@ class LoginActivity : BasicActivity(), LoginCallback {
 
         mLoginViewModel.getLoginResult().observe(
             this@LoginActivity, {
-                it.error?.let { errorStringInt ->
-                    callToast(getString(errorStringInt), true)
-                } ?: run {
-                    it.success?.let { userObj ->
+                when (it) {
+                    is LoginStatus.OnApiLoading -> {
+                        onShowLoading(it.isLoading)
+                    }
+                    is LoginStatus.OnApiFail -> {
+                        callToast(getString(it.errorStrInt), true)
+                    }
+                    is LoginStatus.OnApiSuccess -> {
                         //Jump Other Page
                         val welcomeStr =
-                            "${getString(R.string.login_welcome)} ${userObj.displayName}!"
+                            "${getString(R.string.login_welcome)} ${it.userInfo.displayName}!"
                         callToast(welcomeStr, true)
 
                         openHomePage()

@@ -10,7 +10,7 @@ import vic.sample.chatuisample.utility.ViewClick
 
 
 class UserListAdapter(
-    private val items: ArrayList<UserItem>,
+    private val dataList: ArrayList<UserItem>,
     private val onClickListener: ((view: View, clickItem: UserItem) -> Unit)
 ) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
@@ -21,12 +21,16 @@ class UserListAdapter(
         return ViewHolder(binding, onClickListener)
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = dataList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = dataList[position]
         holder.bind(item, position)
 
+    }
+
+    fun getDataList(): ArrayList<UserItem> {
+        return dataList
     }
 
     class ViewHolder(

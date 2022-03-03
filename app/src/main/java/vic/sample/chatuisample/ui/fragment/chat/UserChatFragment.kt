@@ -23,6 +23,7 @@ import vic.sample.chatuisample.ui.fragment.chat.adapter.ChatAdapter
 import vic.sample.chatuisample.ui.fragment.chat.adapter.ChatItem
 import vic.sample.chatuisample.ui.fragment.chat.adapter.ChatViewType
 import java.util.*
+import kotlin.collections.ArrayList
 
 class UserChatFragment : BasicFragment() {
 
@@ -39,10 +40,7 @@ class UserChatFragment : BasicFragment() {
     /*
     * Chat List
     * */
-    private val mChatItemList = ArrayList<ChatItem>()
-    private val mChatAdapter: ChatAdapter by lazy {
-        ChatAdapter(mChatItemList)
-    }
+    private lateinit var mChatAdapter: ChatAdapter
 
     override fun onDestroy() {
         super.onDestroy()
@@ -114,6 +112,8 @@ class UserChatFragment : BasicFragment() {
     }
 
     private fun initChatRecycleView() {
+        mChatAdapter = ChatAdapter(ArrayList())
+
         binding.userChatRecycleViewChatList.apply {
             adapter = mChatAdapter
             layoutManager = LinearLayoutManager(
@@ -127,10 +127,12 @@ class UserChatFragment : BasicFragment() {
     private fun addNesMsg(
         contain: String, msgUtcTime: Long, viewType: ChatViewType = ChatViewType.VIEW_TYPE_RECEIVE,
     ) {
-        mChatItemList.add(ChatItem(contain, msgUtcTime, viewType))
-        mChatAdapter.notifyItemChanged(mChatItemList.size - 1)
+        /*
+        * You can save the data into the database and use the ViewModel to update the UI.
+        * */
+        mChatAdapter.addMsg(ChatItem(contain, msgUtcTime, viewType))
         binding.userChatRecycleViewChatList.post {
-            binding.userChatRecycleViewChatList.smoothScrollToPosition(mChatItemList.size - 1)
+            binding.userChatRecycleViewChatList.smoothScrollToPosition(mChatAdapter.itemCount - 1)
         }
 
     }

@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_home_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_user_chat.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/row_user_chat_receive_message.xml" value="0.3974358974358974" />
+        <entry key="app/src/main/res/layout/row_user_chat_send_message.xml" value="0.3974358974358974" />
         <entry key="app/src/main/res/layout/row_user_list.xml" value="0.4036458333333333" />
       </map>
     </option>

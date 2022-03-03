@@ -42,6 +42,7 @@
             tools:text="Vic Wang" />
 
         <TextView
+            android:textColor="@color/gray"
             android:id="@+id/user_list_txt_user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
